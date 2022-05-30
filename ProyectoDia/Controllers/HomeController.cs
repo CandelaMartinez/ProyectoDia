@@ -57,6 +57,71 @@ namespace ProyectoDia.Controllers
             }
             return View();
         }
+        //.............................................................
+        //metodo de la tecla edit de index para actualizar bbdd, 
+        //al pulsar esta tecla recibo el id del paciente desde index
+        //aqui me muestra los datos existentes para que los cambie
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //busco en context el id y lo guardo en la variable
+            var paciente = _context.Paciente.Find(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+            //si encontre el paciente, retorno la vista enviando el paciente
+            return View(paciente);
+        }
+
+        //.......................................................
+        //metodo que actualizar un usuario en la bbdd
+        //aqui envia los datos modificados a la bbdd
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Paciente paciente)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                _context.Paciente.Update(paciente);
+                //guardar cambios
+                await _context.SaveChangesAsync();
+                //retornar Index
+                return RedirectToAction(nameof(Index));
+            }
+            return View(paciente);
+        }
+
+        //..........................................................
+        //boton detalles
+        [HttpGet]
+        public IActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            //busco en context el id y lo guardo en la variable
+            var paciente = _context.Paciente.Find(id);
+
+            if (paciente == null)
+            {
+                return NotFound();
+            }
+
+            return View(paciente);
+        }
+
+
 
         public IActionResult Privacy()
         {
