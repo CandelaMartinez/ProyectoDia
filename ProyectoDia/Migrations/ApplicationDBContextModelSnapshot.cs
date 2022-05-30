@@ -20,7 +20,7 @@ namespace ProyectoDia.Migrations
 
             modelBuilder.Entity("ProyectoDia.DataAccess.Paciente", b =>
                 {
-                    b.Property<int>("TarjetaSanitaria")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
@@ -36,10 +36,13 @@ namespace ProyectoDia.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("TarjetaSanitaria")
+                        .HasColumnType("int");
+
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TarjetaSanitaria");
+                    b.HasKey("Id");
 
                     b.ToTable("Paciente");
                 });

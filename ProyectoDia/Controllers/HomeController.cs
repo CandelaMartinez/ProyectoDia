@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
 using ProyectoDia.ViewModels;
 using System;
@@ -12,14 +14,24 @@ namespace ProyectoDia.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        //Use the context by injecting it into the constructor of the controller
+        private readonly ApplicationDBContext _contexto;
+        public HomeController(ApplicationDBContext contexto)
         {
-            _logger = logger;
+            _contexto = contexto;
         }
 
-        public IActionResult Index()
+        //async method because for bringing data from the db is better to be async ???
+        [HttpGet]
+        public async Task <IActionResult> Index()
+        {
+            return View(await _contexto.Paciente.ToListAsync());
+        }
+
+        //.............................................................
+        //not need to be async ???
+        [HttpGet]
+        public IActionResult Create()
         {
             return View();
         }

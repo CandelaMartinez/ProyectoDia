@@ -7,6 +7,9 @@ namespace ProyectoDia.DataAccess
     public class Paciente
     {
         [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "El numero de tarjeta sanitaria es obligatorio")]
         public int TarjetaSanitaria { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio")]

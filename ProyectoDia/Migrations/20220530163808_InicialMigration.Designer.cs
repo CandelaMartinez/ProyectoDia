@@ -9,8 +9,8 @@ using ProyectoDia.DataAccess;
 namespace ProyectoDia.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20220530154520_InicialMigration3")]
-    partial class InicialMigration3
+    [Migration("20220530163808_InicialMigration")]
+    partial class InicialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,12 +22,29 @@ namespace ProyectoDia.Migrations
 
             modelBuilder.Entity("ProyectoDia.DataAccess.Paciente", b =>
                 {
-                    b.Property<int>("TarjetaSanitaria")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.HasKey("TarjetaSanitaria");
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TarjetaSanitaria")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Paciente");
                 });
