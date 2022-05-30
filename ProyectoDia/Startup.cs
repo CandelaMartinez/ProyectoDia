@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ProyectoDia.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +26,13 @@ namespace ProyectoDia
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+        //add the context, add the package microsoftEntityFrameworkCoreSQLserver
+        //for migration I install microsoftEntityFrameworkCore.Tools: code First
+        //active the usual commands for migrations
+            services.AddDbContext<ApplicationDBContext>(options =>
+              options.UseSqlServer(
+                  Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

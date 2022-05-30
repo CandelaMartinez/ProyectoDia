@@ -1,0 +1,73 @@
+﻿@model ProyectoDia.DataAccess.Paciente
+
+@{
+    ViewData["Title"] = "Eliminar Paciente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="text-center">CRUD pacientes</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-12">
+        <div class="card-border">
+            <div class="card-header">
+                <h3><strong>Eliminar paciente</strong></h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- llamo al metodo delete, envio oculto el id necesario para saber cual es el paciente que quiero borrar-->
+            <!--ira a buscar un metodo del post que se llama borrar-->
+            <form asp-action="Delete">
+                <input type="hidden" value="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="TarjetaSanitaria" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="TarjetaSanitaria" class="form-control" readonly />
+                    <span asp-validation-for="TarjetaSanitaria" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="Nombre" class="form-control" readonly />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Apellido" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="Apellido" class="form-control" readonly />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaNacimiento" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="FechaNacimiento" class="form-control" readonly />
+                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Telefono" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="Telefono" class="form-control" readonly />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Direccion" class="control-label"></label>
+                    <!--campo solo lectura-->
+                    <input asp-for="Direccion" class="form-control" readonly />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+             
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i>Eliminar Paciente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--BOTON PARA VOLVER A INDEX-->
+<div>
+    <a asp-action="Index">Volver a lista</a>
+</div>
