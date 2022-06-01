@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProyectoDia.DataAccess
 {
     public class Medico
     {
-       public long id { get; private set; }
-       private String Nombre { get; set; }
-       private String Apellido { get; set; }
-       private String matricula { get; set; }
+        [Key]
+        public int Id { get; private set; }
+        public String Nombre { get; set; }
+        public String Apellido { get; set; }
+        public String matricula { get; set; }
+        //relacion de muchos a muchos con visita medica
+        //un medico puede tener muchas visitas medicas
+        public ICollection<VisitaMedica> ListaVisitasMedicas { get; set; }
 
-       private IEnumerable<VisitaMedica> ListaVisitasMedicas { get; set; }
-       private IEnumerable<Paciente> ListaPacientes { get; set; }
+        //relacion de uno a muchos con paciente
+        //un medico puede tener muchos pacientes
+        public ICollection<Paciente> ListaPacientes { get; set; }
 
 
     }

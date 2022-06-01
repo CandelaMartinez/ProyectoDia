@@ -1,15 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ProyectoDia.DataAccess;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProyectoDia
 {
@@ -30,6 +25,7 @@ namespace ProyectoDia
         //add the context, add the package microsoftEntityFrameworkCoreSQLserver
         //for migration I install microsoftEntityFrameworkCore.Tools: code First
         //active the usual commands for migrations
+        //agrego el servicio de conexion a la db 
             services.AddDbContext<ApplicationDBContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("DefaultConnection")));
