@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoDia.DataAccess
 {
@@ -26,7 +27,17 @@ namespace ProyectoDia.DataAccess
 
         [Required(ErrorMessage = "La direccion es obligatoria")]
         public String Direccion { get; set; }
-        private IEnumerable<VisitaMedica> ListaVisitasMedicas { get; set; }
-        private Medico MedicoCabecera { get; set; }
+
+        //relacion de muchos a muchos con visita medica
+        //un paciente puede tener muchas visitas medicas
+        public ICollection<VisitaMedica> ListaVisitasMedicas { get; set; }
+
+        //relacion de muchos a uno con medico. muchos pacientes un medico.
+        //foreign key con la table medico
+        [Required]
+        public int MedicoCabeceraId { get; set; }
+        
+        [ForeignKey("MedicoCabeceraId")]
+        public Medico MedicoCabecera { get; set; }
     }
 }

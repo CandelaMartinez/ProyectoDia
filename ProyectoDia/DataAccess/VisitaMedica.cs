@@ -1,15 +1,30 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProyectoDia.DataAccess
 {
     public class VisitaMedica
     {
-        public long Id { get; private set; }
-        private Paciente Paciente { get; set; }
-        private Medico Medico { get; set; }
-        private DateTime Fecha { get; set; }
-        private string Observaciones { get; set; }
+        [Key]
+        public int Id { get; private set; }
+
+        //relacion de muchas visitas medicas a un paciente
+        [Required]
+        public int PacienteId { get; set; }
+
+        [ForeignKey("PacienteId")]
+        public Paciente Paciente { get; set; }
+
+        //relacion de muchas visitas medicas a un medico
+        [Required]
+        public int MedicoId { get; set; }
+
+        [ForeignKey("MedicoId")]
+        public Medico Medico { get; set; }
+
+        public DateTime Fecha { get; set; }
+        public string Observaciones { get; set; }
 
     }
 }
