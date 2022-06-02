@@ -34,7 +34,7 @@ namespace ProyectoDia.DataAccess
 
         //relacion de muchos a uno con medico. muchos pacientes un medico.
         //foreign key con la table medico
-        [Required]
+        //[Required]
         public int MedicoCabeceraId { get; set; }
         
         [ForeignKey("MedicoCabeceraId")]
