@@ -1,0 +1,47 @@
+﻿@model ProyectoDia.DataAccess.VisitaMedica
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1 class="text-center">Patient CRUD</h1>
+<hr />
+<div class="row">
+    <div class="col-12">
+        <div class="card-border">
+            <div class="card-header">
+                <h3><strong>Editar medico</strong></h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <!-- llamo al metodo edit, envio oculto el id, campo oculto-->
+            <form asp-action="Edit">
+                <input type="hidden" value="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="PacienteId" class="control-label"></label>
+                    <input asp-for="PacienteId" class="form-control" />
+                    <span asp-validation-for="PacienteId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MedicoId" class="control-label"></label>
+                    <input asp-for="MedicoId" class="form-control" />
+                    <span asp-validation-for="MedicoId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Observaciones" class="control-label"></label>
+                    <input asp-for="Observaciones" class="form-control" />
+                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i>Editar medico</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--BOTON PARA VOLVER A INDEX-->
+<div>
+    <a asp-action="Index">Volver a lista</a>
+</div>

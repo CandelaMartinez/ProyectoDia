@@ -7,6 +7,7 @@ namespace ProyectoDia.DataAccess
 {
     public class Paciente
     {
+
         [Key]
         public int Id { get; set; }
 
