@@ -1,22 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
-using ProyectoDia.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProyectoDia.Controllers
 {
-    public class HomeController : Controller
+    public class PacienteController : Controller
     {
         //Use the context by injecting it into the constructor of the controller
         private readonly ApplicationDBContext _context;
-        public HomeController(ApplicationDBContext context)
+        public PacienteController(ApplicationDBContext context)
         {
             _context = context;
         }
@@ -43,6 +38,13 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Paciente paciente)
         {
+            Medico m = new Medico();
+
+            if (paciente.MedicoCabecera == null)
+            {
+                paciente.MedicoCabecera = m;
+            }
+
             //validate the model
             //all the fields must be validated
             if (ModelState.IsValid)
@@ -87,7 +89,12 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Paciente paciente)
         {
+            Medico m = new Medico();
 
+            if (paciente.MedicoCabecera == null)
+            {
+                paciente.MedicoCabecera = m;
+            }
             if (ModelState.IsValid)
             {
 
