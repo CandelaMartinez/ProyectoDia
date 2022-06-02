@@ -7,11 +7,11 @@ namespace ProyectoDia.ViewModels
     public class MedicoViewModel
     {
         public long id { get; private set; }
-        private String Nombre { get; set; }
-        private String Apellido { get; set; }
-        private String matricula { get; set; }
+        public String Nombre { get; set; }
+        public String Apellido { get; set; }
+        public String matricula { get; set; }
 
-        private IEnumerable<VisitaMedica> ListaVisitasMedicas { get; set; }
-        private IEnumerable<Paciente> ListaPacientes { get; set; }
+        public IEnumerable<VisitaMedica> ListaVisitasMedicas { get; set; }
+        public IEnumerable<Paciente> ListaPacientes { get; set; }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model ProyectoDia.DataAccess.Medico
+
+@{
+    ViewData["Title"] = "Detalle medico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1 class="text-center">Pacientes CRUD</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-12">
+        <div class="card-border">
+            <div class="card-header">
+                <h3><strong>Detalle del paciente</strong></h3>
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nombre: </strong>@Html.DisplayFor(m => m.Nombre)</li>
+                <li class="list-group-item"><strong>Apellido: </strong>@Html.DisplayFor(m => m.Apellido)</li>
+                <li class="list-group-item"><strong>Telefono: </strong>@Html.DisplayFor(m => m.matricula)</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<!--BOTON PARA VOLVER A INDEX-->
+<div>
+    <a asp-action="Index">Volver a lista</a>
+</div>
