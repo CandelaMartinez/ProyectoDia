@@ -43,14 +43,12 @@ namespace ProyectoDia.Controllers
                 {
                     sli.Text = d.Nombre.ToString();
 
+                    sli.Value = d.Id.ToString();
+
+                    sli.Selected = false;
+
+
                 }
-
-
-                sli.Value = d.Id.ToString();
-
-                sli.Selected = false;
-
-
 
                 return sli;
             });
