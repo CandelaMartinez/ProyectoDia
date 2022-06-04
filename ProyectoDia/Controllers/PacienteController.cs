@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -20,6 +21,7 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public async Task <IActionResult> Index()
         {
+
             return View(await _context.Paciente.ToListAsync());
         }
 

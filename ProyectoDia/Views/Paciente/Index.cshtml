@@ -4,14 +4,14 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center">Patients CRUD</h1>
+<h1 class="text-center">Listado de pacientes</h1>
 
 <!--New Patient button-->
 <div class="row">
     <div class="col-12">
         <div class="float-right">
             <!--Font Awesome icon, create method in HomeController-->
-            <a asp-action="Create" asp-controller="Paciente" class="btn-success"><i class="fas fa-plus"></i> Add new Patient</a>
+            <a asp-action="Create" asp-controller="Paciente" class="btn btn-success"><i class="fas fa-plus"></i> Crear paciente</a>
         </div>
     </div>
 </div>
@@ -40,6 +40,7 @@
                                 <th>@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
                                 <th>@Html.DisplayNameFor(m => m.Direccion)</th>
                                 <th>@Html.DisplayNameFor(m => m.Telefono)</th>
+                                <th>@Html.DisplayNameFor(m => m.MedicoCabecera)</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -47,22 +48,23 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(m => item.Id)</td>
-                                    <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
-                                    <td>@Html.DisplayFor(m => item.Nombre)</td>
-                                    <td>@Html.DisplayFor(m => item.Apellido)</td>
-                                    <td>@Html.DisplayFor(m => item.FechaNacimiento)</td>
-                                    <td>@Html.DisplayFor(m => item.Direccion)</td>
-                                    <td>@Html.DisplayFor(m => item.Telefono)</td>
-                                    <td>
-                                        <!--botones para las acciones sobre los registros -->
-                                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
-                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a>
-                                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash-can"></i>Delete</a>
+                            <tr>
+                                <td>@Html.DisplayFor(m => item.Id)</td>
+                                <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
+                                <td>@Html.DisplayFor(m => item.Nombre)</td>
+                                <td>@Html.DisplayFor(m => item.Apellido)</td>
+                                <td>@Html.DisplayFor(m => item.FechaNacimiento)</td>
+                                <td>@Html.DisplayFor(m => item.Direccion)</td>
+                                <td>@Html.DisplayFor(m => item.Telefono)</td>
+                                <td>@Html.DisplayFor(m => item.MedicoCabeceraId)</td>
+                                <td>
+                                    <!--botones para las acciones sobre los registros -->
+                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
+                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a>
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash-can"></i>Delete</a>
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
                             }
                         </tbody>
 

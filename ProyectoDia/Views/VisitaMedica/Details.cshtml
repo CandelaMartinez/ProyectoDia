@@ -6,10 +6,11 @@
 }
 
 
-<h1 class="text-center">Pacientes CRUD</h1>
+<h1 class="text-center">Visitas medica</h1>
 
 
 <hr />
+<!--
 <div class="row">
     <div class="col-12">
         <div class="card-border">
@@ -27,7 +28,24 @@
         </div>
     </div>
 </div>
+-------------------------------------------------------------------------------------------->
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="./images/MYR.png" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Informacion del medico</h5>
+                <p class="card-text">Nombre:<small class="text-muted">@Html.DisplayFor(m => m.Paciente)</small></p>
+                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Medico)</small></p>
+                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Fecha)</small></p>
+                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Observaciones)</small></p>
 
+            </div>
+        </div>
+    </div>
+</div>
 <!--BOTON PARA VOLVER A INDEX-->
 <div>
     <a asp-action="Index">Volver a lista</a>

@@ -5,15 +5,15 @@
     ViewData["Title"] = "Create visita medica";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center">vm CRUD</h1>
-<hr />
+<h1 class="text-center">Registrar visita medica</h1>
+@*<hr />*@
 <div class="row">
     <div class="col-12">
-        <div class="card-border">
+        @*<div class="card-border">
             <div class="card-header">
                 <h3><strong>Create vm</strong></h3>
             </div>
-        </div>
+        </div>*@
         <div class="card-body">
 
             <form asp-action="Create">
@@ -37,7 +37,7 @@
 
                 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i>Crear vm</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Guardar</button>
                 </div>
             </form>
         </div>
