@@ -4,25 +4,25 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center">vm CRUD</h1>
+<h1 class="text-center">Registro de visitas medicas</h1>
 
 <!--New Patient button-->
 <div class="row">
     <div class="col-12">
         <div class="float-right">
             <!--Font Awesome icon, create method in HomeController-->
-            <a asp-action="Create" asp-controller="VisitaMedica" class="btn-success"><i class="fas fa-plus"></i> Add new vm</a>
+            <a asp-action="Create" asp-controller="VisitaMedica" class="btn btn-success"><i class="fas fa-plus"></i> registrar visita</a>
         </div>
     </div>
 </div>
 <!-- List of patients-->
 <div class="row">
     <div class="col-12">
-        <div class="card-border">
+        @*<div class="card-border">
             <div class="card-header">
                 <h3><strong>vm List</strong></h3>
             </div>
-        </div>
+        </div>*@
         <div class="card-body">
             <div class="table-responsive">
                 <!--model access, if there is any register-->
@@ -65,7 +65,7 @@
                 }
                 else
                 {
-                    <p>No hay registros</p>
+                    <p>No se ha registrado visitas medicas</p>
                 }
             </div>
         </div>

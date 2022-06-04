@@ -29,9 +29,10 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            MedicoViewModel mvm = new MedicoViewModel();
-            mvm.ListaPacientes = (System.Collections.Generic.IEnumerable<Business.Models.Paciente>)await _context.Paciente.ToListAsync();
-            return View(mvm);
+            return View();
+            /* MedicoViewModel mvm = new MedicoViewModel();
+             mvm.ListaPacientes = (System.Collections.Generic.IEnumerable<Business.Models.Paciente>)await _context.Paciente.ToListAsync();
+             return View(mvm);*/
         }
         //.............................................................
         //I call this method when I create a Patient

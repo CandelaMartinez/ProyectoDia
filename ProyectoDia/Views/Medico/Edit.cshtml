@@ -4,15 +4,15 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center">Patient CRUD</h1>
-<hr />
+<h1 class="text-center">Editar un medico</h1>
+@*<hr />*@
 <div class="row">
     <div class="col-12">
-        <div class="card-border">
+        @*<div class="card-border">
             <div class="card-header">
                 <h3><strong>Editar medico</strong></h3>
             </div>
-        </div>
+        </div>*@
         <div class="card-body">
             <!-- llamo al metodo edit, envio oculto el id, campo oculto-->
             <form asp-action="Edit">
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i>Editar medico</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Editar</button>
                 </div>
             </form>
         </div>
@@ -44,5 +44,5 @@
 
 <!--BOTON PARA VOLVER A INDEX-->
 <div>
-    <a asp-action="Index">Volver a lista</a>
+    <a class="btn btn-primary" asp-action="Index">Volver a lista</a>
 </div>

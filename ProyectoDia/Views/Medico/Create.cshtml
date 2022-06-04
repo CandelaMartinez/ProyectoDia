@@ -5,15 +5,15 @@
     ViewData["Title"] = "Create Medico";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1 class="text-center">Patients CRUD</h1>
-<hr />
+<h1 class="text-center">Listado de Medicos</h1>
+@*<hr />*@
 <div class="row">
     <div class="col-12">
-        <div class="card-border">
+        @*<div class="card-border">
             <div class="card-header">
-                <h3><strong>Create Patient</strong></h3>
+                <h3><strong>Crear medico</strong></h3>
             </div>
-        </div>
+        </div>*@
         <div class="card-body">
 
             <form asp-action="Create">
@@ -37,7 +37,7 @@
 
                 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i>Crear Medico</button>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Guardar</button>
                 </div>
             </form>
         </div>
@@ -46,5 +46,5 @@
 
 <!--BOTON PARA VOLVER A INDEX-->
 <div>
-    <a asp-action="Index">Volver a lista</a>
+    <a class="btn btn-primary" asp-action="Index">Volver a lista</a>
 </div>
