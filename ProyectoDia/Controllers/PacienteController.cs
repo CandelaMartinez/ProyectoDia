@@ -111,6 +111,32 @@ namespace ProyectoDia.Controllers
             {
                 return NotFound();
             }
+
+            var listaMedicos = _context.Medico.ToList();
+
+
+            List<SelectListItem> listaDropDown = listaMedicos.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                }
+
+
+                sli.Value = d.Id.ToString();
+
+                sli.Selected = false;
+
+
+
+                return sli;
+            });
+
+            ViewBag.listaDropDown = listaDropDown;
+
+            
             //si encontre el paciente, retorno la vista enviando el paciente
             return View(paciente);
         }
@@ -122,12 +148,15 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Paciente paciente)
         {
-            Medico m = new Medico();
-
             if (paciente.MedicoCabecera == null)
             {
-                paciente.MedicoCabecera = m;
+
+                int medicoid = paciente.MedicoCabeceraId;
+                var medico = _context.Medico.Find(medicoid);
+                paciente.MedicoCabecera = medico;
+                paciente.MedicoCabeceraId = medico.Id;
             }
+
             if (ModelState.IsValid)
             {
 
