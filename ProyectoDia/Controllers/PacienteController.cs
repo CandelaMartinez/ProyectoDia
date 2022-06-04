@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProyectoDia.Controllers
@@ -30,6 +33,30 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            var listaMedicos = _context.Medico.ToList();
+
+
+            List<SelectListItem> listaDropDown = listaMedicos.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                }
+
+
+                sli.Value = d.Id.ToString();
+
+                sli.Selected = false;
+
+
+
+                return sli;
+            });
+
+            ViewBag.listaDropDown = listaDropDown;
+
             return View();
         }
         //.............................................................
@@ -40,16 +67,20 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Paciente paciente)
         {
-            Medico m = new Medico();
 
             if (paciente.MedicoCabecera == null)
             {
-                paciente.MedicoCabecera = m;
+
+                int medicoid = paciente.MedicoCabeceraId;
+                var medico = _context.Medico.Find(medicoid);
+                paciente.MedicoCabecera = medico;
+                paciente.MedicoCabeceraId = medico.Id;
             }
 
-            //validate the model
-            //all the fields must be validated
-            if (ModelState.IsValid)
+
+                //validate the model
+                //all the fields must be validated
+                if (ModelState.IsValid)
             {
                 //send data to the DB
                 //save patient
