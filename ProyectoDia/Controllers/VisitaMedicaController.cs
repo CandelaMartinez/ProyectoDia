@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProyectoDia.Controllers
@@ -28,6 +31,49 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            //recupera y pinta combo de medicos
+            var listaMedicos = _context.Medico.ToList();
+
+
+            List<SelectListItem> listaDropDownMedicos = listaMedicos.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                    sli.Value = d.Id.ToString();
+
+                    sli.Selected = false;
+
+
+                }
+
+                return sli;
+            });
+
+            ViewBag.listaDropDownMedicos = listaDropDownMedicos;
+            //recupera y pinta combo de pacientes
+            var listaPacientes = _context.Paciente.ToList();
+
+            List<SelectListItem> listaDropDownPacientes = listaPacientes.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                    sli.Value = d.Id.ToString();
+
+                    sli.Selected = false;
+
+                }
+
+                return sli;
+
+            });
+            ViewBag.listaDropDownPacientes = listaDropDownPacientes;
+
             return View();
         }
         //.............................................................
@@ -38,17 +84,19 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VisitaMedica visitaMedica)
         {
-            Medico m = new Medico();
-
             if (visitaMedica.Medico == null)
             {
-                visitaMedica.Medico = m;
+                int medicoid = visitaMedica.MedicoId;
+                var medico = _context.Medico.Find(medicoid);
+                visitaMedica.Medico = medico;
+                visitaMedica.MedicoId = medico.Id;
             }
-            Paciente p = new Paciente();
-
             if (visitaMedica.Paciente == null)
             {
-                visitaMedica.Paciente = p;
+                int pacienteid = visitaMedica.PacienteId;
+                var paciente = _context.Paciente.Find(pacienteid);
+                visitaMedica.Paciente = paciente;
+                visitaMedica.PacienteId = paciente.Id;
             }
 
             //validate the model
@@ -79,11 +127,55 @@ namespace ProyectoDia.Controllers
 
             //busco en context el id y lo guardo en la variable
             var vm = _context.VisitaMedica.Find(id);
+            
 
             if (vm == null)
             {
                 return NotFound();
             }
+            //recupera y pinta combo de medicos
+            var listaMedicos = _context.Medico.ToList();
+
+
+            List<SelectListItem> listaDropDownMedicos = listaMedicos.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                    sli.Value = d.Id.ToString();
+
+                    sli.Selected = false;
+
+
+                }
+
+                return sli;
+            });
+
+            ViewBag.listaDropDownMedicos = listaDropDownMedicos;
+            //recupera y pinta combo de pacientes
+            var listaPacientes = _context.Paciente.ToList();
+
+            List<SelectListItem> listaDropDownPacientes = listaPacientes.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+                if (d.Nombre != null)
+                {
+                    sli.Text = d.Nombre.ToString();
+
+                    sli.Value = d.Id.ToString();
+
+                    sli.Selected = false;
+
+                }
+
+                return sli;
+
+            });
+            ViewBag.listaDropDownPacientes = listaDropDownPacientes;
+
             //si encontre el paciente, retorno la vista enviando el paciente
             return View(vm);
         }
@@ -92,19 +184,35 @@ namespace ProyectoDia.Controllers
         //aqui envia los datos modificados a la bbdd
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(VisitaMedica vm)
+        public async Task<IActionResult> Edit(VisitaMedica visitaMedica)
         {
+        
+
+            if (visitaMedica.Medico == null)
+            {
+                int medicoid = visitaMedica.MedicoId;
+                var medico = _context.Medico.Find(medicoid);
+                visitaMedica.Medico = medico;
+                visitaMedica.MedicoId = medico.Id;
+            }
+            if (visitaMedica.Paciente == null)
+            {
+                int pacienteid = visitaMedica.PacienteId;
+                var paciente = _context.Paciente.Find(pacienteid);
+                visitaMedica.Paciente = paciente;
+                visitaMedica.PacienteId = paciente.Id;
+            }
 
             if (ModelState.IsValid)
             {
-
-                _context.VisitaMedica.Update(vm);
+                
+                _context.VisitaMedica.Update(visitaMedica);
                 //guardar cambios
                 await _context.SaveChangesAsync();
                 //retornar Index
                 return RedirectToAction(nameof(Index));
             }
-            return View(vm);
+            return View(visitaMedica);
         }
         //..........................................................
         //boton detalles

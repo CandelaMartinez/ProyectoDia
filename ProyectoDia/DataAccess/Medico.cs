@@ -7,7 +7,7 @@ namespace ProyectoDia.DataAccess
     public class Medico
     {
         [Key]
-        public int Id { get; private set; }
+        public int Id { get;  set; }
         public String Nombre { get; set; }
         public String Apellido { get; set; }
         public String matricula { get; set; }

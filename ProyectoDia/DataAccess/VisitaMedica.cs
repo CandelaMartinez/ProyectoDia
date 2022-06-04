@@ -7,7 +7,7 @@ namespace ProyectoDia.DataAccess
     public class VisitaMedica
     {
         [Key]
-        public int Id { get; private set; }
+        public int Id { get;  set; }
 
         //relacion de muchas visitas medicas a un paciente
         [Required]

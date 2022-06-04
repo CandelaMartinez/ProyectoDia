@@ -1,6 +1,8 @@
 ﻿@model ProyectoDia.DataAccess.VisitaMedica
 @{
     ViewData["Title"] = "Edit";
+    List<SelectListItem> dropdownMedicos = (List<SelectListItem>)ViewBag.listadropdownMedicos;
+    List<SelectListItem> dropdownPacientes = (List<SelectListItem>)ViewBag.listadropdownPacientes;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h1 class="text-center">Patient CRUD</h1>
@@ -19,12 +21,16 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="PacienteId" class="control-label"></label>
-                    <input asp-for="PacienteId" class="form-control" />
+                    <select asp-for="PacienteId" asp-items="dropdownPacientes" id="desplegableMedicosVM">
+                        <option>Elige paciente</option>
+                    </select>
                     <span asp-validation-for="PacienteId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="MedicoId" class="control-label"></label>
-                    <input asp-for="MedicoId" class="form-control" />
+                    <select asp-for="MedicoId" asp-items="dropdownMedicos" id="desplegablePacientesVM">
+                        <option>Elige medico</option>
+                    </select>
                     <span asp-validation-for="MedicoId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
