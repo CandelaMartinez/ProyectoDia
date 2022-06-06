@@ -6,47 +6,26 @@
 }
 
 
-<h1 class="text-center">Visitas medica</h1>
-
-
-<hr />
-<!--
-<div class="row">
-    <div class="col-12">
-        <div class="card-border">
-            <div class="card-header">
-                <h3><strong>Detalle del paciente</strong></h3>
-            </div>
-        </div>
-        <div class="card-body">
-            <ul class="list-group">
-                <li class="list-group-item"><strong>Nombre: </strong>@Html.DisplayFor(m => m.PacienteId)</li>
-                <li class="list-group-item"><strong>Apellido: </strong>@Html.DisplayFor(m => m.MedicoId)</li>
-                <li class="list-group-item"><strong>Telefono: </strong>@Html.DisplayFor(m => m.Observaciones)</li>
-            </ul>
-
-        </div>
-    </div>
-</div>
--------------------------------------------------------------------------------------------->
+<h1 class="text-center">Registro de visita medica</h1>
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
         <div class="col-md-4">
-            <img src="./images/MYR.png" class="img-fluid rounded-start" alt="...">
+            <img src="../images/csm_tecnologia_tendencias_gestion_sanitaria_19b692e439.jpg" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
             <div class="card-body">
                 <h5 class="card-title">Informacion del medico</h5>
-                <p class="card-text">Nombre:<small class="text-muted">@Html.DisplayFor(m => m.Paciente)</small></p>
-                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Medico)</small></p>
-                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Fecha)</small></p>
-                <p class="card-text"> Matricula:<small class="text-muted"> @Html.DisplayFor(m => m.Observaciones)</small></p>
+                <p class="card-text">Nombre Paciente:<small class="text-muted">@Html.DisplayFor(m => m.Paciente.Nombre)</small></p>
+                <p class="card-text"> Nombre medico:<small class="text-muted"> @Html.DisplayFor(m => m.Medico.Nombre)</small></p>
+                <p class="card-text"> Hora y Fecha:<small class="text-muted"> @Html.DisplayFor(m => m.Fecha)</small></p>
+                <p class="card-text"> Observaciones:<small class="text-muted"> @Html.DisplayFor(m => m.Observaciones)</small></p>
 
             </div>
         </div>
     </div>
 </div>
-<!--BOTON PARA VOLVER A INDEX-->
+
+
 <div>
     <a asp-action="Index">Volver a lista</a>
 </div>

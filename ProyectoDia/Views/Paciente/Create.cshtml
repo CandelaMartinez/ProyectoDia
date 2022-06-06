@@ -55,7 +55,7 @@
                 <div class="form-group">
                     <label asp-for="MedicoCabeceraId" class="control-label"></label>
 
-                    <select asp-for="MedicoCabeceraId" asp-items="dropdownMedicos" id="desplegableMedicos">
+                    <select class="form-select form-select-lg mb-3" asp-for="MedicoCabeceraId" asp-items="dropdownMedicos" id="desplegableMedicos">
                         <option>Elige medico</option>
                     </select>
                     <span asp-validation-for="MedicoCabeceraId" class="text-danger"></span>
