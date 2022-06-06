@@ -1,20 +1,19 @@
 ﻿@model IEnumerable<ProyectoDia.DataAccess.Paciente>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "listarPacientes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Listado de pacientes</h2>
 
+<h1>listarPacientes</h1>
 <!--New Patient button-->
-<div class="row">
+<!--<div class="row">
     <div class="col-12">
-        <div class="float-right">
+        <div class="float-right">-->
             <!--Font Awesome icon, create method in HomeController-->
-            <a asp-action="Create" asp-controller="Paciente" class="btn btn-success"><i class="fas fa-plus"></i> Crear paciente</a>
+            <!--<a asp-action="Create" asp-controller="Paciente" class="btn btn-success"><i class="fas fa-plus"></i> Crear paciente</a>
         </div>
     </div>
-</div>
+</div>-->
 <!-- List of patients-->
 <div class="row">
     <div class="col-12">
@@ -43,23 +42,33 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(m => item.Id)</td>
-                                <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
-                                <td>@Html.DisplayFor(m => item.Nombre)</td>
-                                <td>@Html.DisplayFor(m => item.Apellido)</td>
-                                <td>@Html.DisplayFor(m => item.FechaNacimiento)</td>
-                                <td>@Html.DisplayFor(m => item.Direccion)</td>
-                                <td>@Html.DisplayFor(m => item.Telefono)</td>
-                                <td>@Html.DisplayFor(m => item.MedicoCabecera.Nombre)</td>
-                                <td>
-                                    <!--botones para las acciones sobre los registros -->
-                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-solid fa-pencil"></i>Edit</a>
-                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-solid fa-info"></i> Details</a>
-                                    
+                                <tr>
+                                    <td>@Html.DisplayFor(m => item.Id)</td>
+                                    <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
+                                    <td>@Html.DisplayFor(m => item.Nombre)</td>
+                                    <td>@Html.DisplayFor(m => item.Apellido)</td>
+                                    <td>@Html.DisplayFor(m => item.FechaNacimiento)</td>
+                                    <td>@Html.DisplayFor(m => item.Direccion)</td>
+                                    <td>@Html.DisplayFor(m => item.Telefono)</td>
+                                    <td>@Html.DisplayFor(m => item.MedicoCabecera.Nombre)</td>
+                                    <td>
+                                        <!--botones para las acciones sobre los registros -->
+                                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
+                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a>
+                                        @if (item.Activo == true)
+                                        {
 
-                                </td>
-                            </tr>
+                                            <a class="btn btn-success" asp-action="CambiarEstado" asp-route-id="@item.Id"><i class="fas fa-solid fa-trash-can"></i> Desactivar</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn btn-danger" asp-action="CambiarEstado" asp-route-id="@item.Id"><i class="fas fa-solid fa-trash-can"></i> Activar</a>
+
+
+                                        }
+
+                                    </td>
+                                </tr>
                             }
                         </tbody>
 
@@ -106,4 +115,6 @@
 
 
 }
+
+
 

@@ -111,8 +111,10 @@ namespace ProyectoDia.Controllers
                 visitaMedica.Paciente = paciente;
                 visitaMedica.PacienteId = paciente.Id;
             }
-            var fecha = DateTime.Now;
-            visitaMedica.Fecha = fecha;
+
+           
+            //var fecha = DateTime.Now;
+           // visitaMedica.Fecha = fecha;
             //validate the model
             //all the fields must be validated
             if (ModelState.IsValid)
@@ -122,6 +124,8 @@ namespace ProyectoDia.Controllers
                 _context.VisitaMedica.Add(visitaMedica);
                 //save changes
                 await _context.SaveChangesAsync();
+
+
                 //once the register is saved, return to Index page
                 return RedirectToAction(nameof(Index));
             }
@@ -262,6 +266,7 @@ namespace ProyectoDia.Controllers
                 paciente = _context.Paciente.Find(idPaciente);
                 visita.Medico = medico;
                 visita.Paciente = paciente;
+                
             
 
             return View(visita);

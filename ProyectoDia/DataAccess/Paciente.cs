@@ -29,6 +29,8 @@ namespace ProyectoDia.DataAccess
         [Required(ErrorMessage = "La direccion es obligatoria")]
         public String Direccion { get; set; }
 
+        public bool Activo { get; set; }
+
         //relacion de muchos a muchos con visita medica
         //un paciente puede tener muchas visitas medicas
         public ICollection<VisitaMedica> ListaVisitasMedicas { get; set; }

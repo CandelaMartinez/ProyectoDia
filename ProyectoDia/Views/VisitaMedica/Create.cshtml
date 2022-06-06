@@ -32,12 +32,17 @@
                     <span asp-validation-for="MedicoId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input asp-for="Fecha" class="form-control" placeholder="Ingresa la fecha de nacimiento del paciente" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Observaciones" class="control-label"></label>
                     <input asp-for="Observaciones" class="form-control" placeholder="Ingresa el apellido del paciente" />
                     <span asp-validation-for="Observaciones" class="text-danger"></span>
                 </div>
 
-                
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Guardar</button>
                 </div>
