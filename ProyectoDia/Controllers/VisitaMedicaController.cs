@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
+using ProyectoDia.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -24,7 +26,23 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.VisitaMedica.ToListAsync());
+            var visitasMedicas =  _context.VisitaMedica.ToListAsync();
+            var visita= visitasMedicas.Result.ToArray();
+            int idMedico;
+            int idPaciente;
+            Medico medico;
+            Paciente paciente;
+     
+            for (int i =0; i< visita.Length;i++) {
+                idMedico = visita[i].MedicoId;
+                idPaciente = visita[i].PacienteId;
+                medico  = _context.Medico.Find(idMedico);
+                paciente = _context.Paciente.Find(idPaciente);
+                visita[i].Medico = medico;
+                visita[i].Paciente = paciente;
+            }
+
+            return View(visita);
         }
         //.............................................................
         //not need to be async ???
@@ -33,7 +51,6 @@ namespace ProyectoDia.Controllers
         {
             //recupera y pinta combo de medicos
             var listaMedicos = _context.Medico.ToList();
-
 
             List<SelectListItem> listaDropDownMedicos = listaMedicos.ConvertAll(d =>
             {
@@ -45,8 +62,6 @@ namespace ProyectoDia.Controllers
                     sli.Value = d.Id.ToString();
 
                     sli.Selected = false;
-
-
                 }
 
                 return sli;
@@ -84,21 +99,20 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VisitaMedica visitaMedica)
         {
-            if (visitaMedica.Medico == null)
+            if (visitaMedica.Medico == null && visitaMedica.Paciente == null)
             {
                 int medicoid = visitaMedica.MedicoId;
                 var medico = _context.Medico.Find(medicoid);
                 visitaMedica.Medico = medico;
                 visitaMedica.MedicoId = medico.Id;
-            }
-            if (visitaMedica.Paciente == null)
-            {
+                //Paciente
                 int pacienteid = visitaMedica.PacienteId;
                 var paciente = _context.Paciente.Find(pacienteid);
                 visitaMedica.Paciente = paciente;
                 visitaMedica.PacienteId = paciente.Id;
             }
-
+            var fecha = DateTime.Now;
+            visitaMedica.Fecha = fecha;
             //validate the model
             //all the fields must be validated
             if (ModelState.IsValid)
@@ -219,20 +233,38 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public IActionResult Details(int? id)
         {
+
+
             if (id == null)
             {
                 return NotFound();
             }
 
             //busco en context el id y lo guardo en la variable
-            var vm = _context.VisitaMedica.Find(id);
+            var visita = _context.VisitaMedica.Find(id);
 
-            if (vm == null)
+            if (visita == null)
             {
                 return NotFound();
             }
 
-            return View(vm);
+            
+            
+            int idMedico;
+            int idPaciente;
+            Medico medico;
+            Paciente paciente;
+
+            
+                idMedico = visita.MedicoId;
+                idPaciente = visita.PacienteId;
+                medico = _context.Medico.Find(idMedico);
+                paciente = _context.Paciente.Find(idPaciente);
+                visita.Medico = medico;
+                visita.Paciente = paciente;
+            
+
+            return View(visita);
         }
         //............................................................
         //boton borrar
