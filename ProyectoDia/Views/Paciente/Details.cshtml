@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "Detalle paciente";
+    List<SelectListItem> dropdownVisitasMedicas = (List<SelectListItem>)ViewBag.listaDropDownVM;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
-<h1 class="text-center">Pacientes CRUD</h1>
+<h1>Pacientes CRUD</h1>
 
 <div class="card mb-3" style="max-width: 540px;">
     <div class="row g-0">
@@ -22,6 +23,7 @@
                 <p class="card-text"> Fecha de nacimiento:<small class="text-muted"> @Html.DisplayFor(m => m.FechaNacimiento)</small></p>
                 <p class="card-text"> Telefono:<small class="text-muted"> @Html.DisplayFor(m => m.Telefono)</small></p>
                 <p class="card-text"> Direccion:<small class="text-muted"> @Html.DisplayFor(m => m.Direccion)</small></p>
+             
             </div>
         </div>
     </div>
@@ -31,3 +33,4 @@
 <div>
     <a asp-action="Index">Volver a lista</a>
 </div>
+

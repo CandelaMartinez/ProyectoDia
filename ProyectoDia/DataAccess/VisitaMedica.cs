@@ -25,6 +25,7 @@ namespace ProyectoDia.DataAccess
 
         public DateTime Fecha { get; set; }
         public string Observaciones { get; set; }
+        public bool Activo { get; set; }
 
     }
 }

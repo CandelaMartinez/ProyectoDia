@@ -19,13 +19,44 @@ namespace ProyectoDia.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        public async Task <IActionResult> listarPacientes()
+        {
+            var pacientes = _context.Paciente.ToListAsync();
+            var pacients = pacientes.Result.ToArray();
+            int idMedico;
+            Medico medico;
+            for (int i = 0; i < pacients.Length; i++)
+            {
+                idMedico = pacients[i].MedicoCabeceraId;
+                medico = _context.Medico.Find(idMedico);
+                pacients[i].MedicoCabecera = medico;
+            }
+            return View(pacients);
+        }
 
         //async method because for bringing data from the db is better to be async ???
         [HttpGet]
         public async Task <IActionResult> Index()
         {
+            var listaPacientesTodos = await _context.Paciente.ToListAsync();
 
-            return View(await _context.Paciente.ToListAsync());
+            List<Paciente> listaPacientesActivos = new List<Paciente>();
+            int idMedico;
+            Medico medico;
+            foreach (var paciente in listaPacientesTodos)
+            {
+                if (paciente.Activo == true)
+                {
+                    idMedico = paciente.MedicoCabeceraId;
+                    medico = _context.Medico.Find(idMedico);
+                    paciente.MedicoCabecera = medico;
+                    listaPacientesActivos.Add(paciente);
+                }
+
+            }
+
+            return View(listaPacientesActivos);
         }
 
         //.............................................................
@@ -75,7 +106,7 @@ namespace ProyectoDia.Controllers
                 paciente.MedicoCabeceraId = medico.Id;
             }
 
-
+            paciente.Activo = true;
                 //validate the model
                 //all the fields must be validated
                 if (ModelState.IsValid)
@@ -154,6 +185,7 @@ namespace ProyectoDia.Controllers
                 paciente.MedicoCabecera = medico;
                 paciente.MedicoCabeceraId = medico.Id;
             }
+            paciente.Activo = true;
 
             if (ModelState.IsValid)
             {
@@ -184,6 +216,28 @@ namespace ProyectoDia.Controllers
             {
                 return NotFound();
             }
+            if (paciente.ListaVisitasMedicas != null)
+            {
+
+            var listaVisitasMedicas = paciente.ListaVisitasMedicas.ToList();
+
+            List<SelectListItem> listaVMDropDown = listaVisitasMedicas.ConvertAll(d =>
+            {
+                var sli = new SelectListItem();
+               
+                sli.Text = d.Fecha.ToString();
+
+                sli.Value = d.Id.ToString();
+
+                sli.Selected = false;
+
+
+
+                return sli;
+            });
+
+            ViewBag.listaDropDown = listaVMDropDown;
+            }
 
             return View(paciente);
         }
@@ -191,33 +245,55 @@ namespace ProyectoDia.Controllers
         //boton borrar
         //recibo el id de index
         //aqui obtiene los registros de la bbdd mediante el id que es un campo oculto
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            //busco en context el id y lo guardo en la variable
-            var paciente = _context.Paciente.Find(id);
+        //    //busco en context el id y lo guardo en la variable
+        //    var paciente = _context.Paciente.Find(id);
 
-            if (paciente == null)
-            {
-                return NotFound();
-            }
 
-            return View(paciente);
-        }
+        //    if (paciente == null)
+        //    {
+        //        return NotFound();
+               
+        //    }
+          
+        //    return View(paciente);
+        //}
         //..........................................................
         //metodo borrar
         //aqui envia los cambios a la bbdd
         //no puede ser delete porque ya esta creado con la misma cantidad de parametros
         //action name sera delete porque asi esta en el formulario de la vista
         //para que vea el nombre delete aunque se llame deleteregistro
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRegistro(int? id)
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteRegistro(int? id)
+        //{
+        //    var paciente = await _context.Paciente.FindAsync(id);
+
+        //    if (paciente == null)
+        //    {
+        //        return View();
+        //    }
+        //    //volver al metodo anterior de delete
+        //    paciente.Activo = false;
+
+        //    _context.Paciente.Update(paciente);
+        //    //guardar cambios
+        //    await _context.SaveChangesAsync();
+        //    //retornar Index
+        //    return RedirectToAction(nameof(Index));
+
+
+        //}
+
+        public async Task<IActionResult> CambiarEstado(int? id)
         {
             var paciente = await _context.Paciente.FindAsync(id);
 
@@ -225,15 +301,21 @@ namespace ProyectoDia.Controllers
             {
                 return View();
             }
+            if (paciente.Activo)
+            {
+            paciente.Activo = false;
 
+            }
+            else
+            {
+                paciente.Activo = true;
+            }
 
-            _context.Paciente.Remove(paciente);
+            _context.Paciente.Update(paciente);
             //guardar cambios
             await _context.SaveChangesAsync();
             //retornar Index
-            return RedirectToAction(nameof(Index));
-
-
+            return RedirectToAction(nameof(listarPacientes));
         }
 
         public IActionResult Privacy()

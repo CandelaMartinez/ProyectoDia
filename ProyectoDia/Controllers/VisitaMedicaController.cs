@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
-using ProyectoDia.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace ProyectoDia.Controllers
 {
@@ -111,8 +110,10 @@ namespace ProyectoDia.Controllers
                 visitaMedica.Paciente = paciente;
                 visitaMedica.PacienteId = paciente.Id;
             }
-            var fecha = DateTime.Now;
-            visitaMedica.Fecha = fecha;
+
+           
+            //var fecha = DateTime.Now;
+           // visitaMedica.Fecha = fecha;
             //validate the model
             //all the fields must be validated
             if (ModelState.IsValid)
@@ -122,6 +123,8 @@ namespace ProyectoDia.Controllers
                 _context.VisitaMedica.Add(visitaMedica);
                 //save changes
                 await _context.SaveChangesAsync();
+
+
                 //once the register is saved, return to Index page
                 return RedirectToAction(nameof(Index));
             }
@@ -262,6 +265,7 @@ namespace ProyectoDia.Controllers
                 paciente = _context.Paciente.Find(idPaciente);
                 visita.Medico = medico;
                 visita.Paciente = paciente;
+                
             
 
             return View(visita);
@@ -270,50 +274,52 @@ namespace ProyectoDia.Controllers
         //boton borrar
         //recibo el id de index
         //aqui obtiene los registros de la bbdd mediante el id que es un campo oculto
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            //busco en context el id y lo guardo en la variable
-            var vm = _context.VisitaMedica.Find(id);
+        //METODO DESACTIVADO YA QUE NO NOS INTERESA ELIMINAR NINGUN REGISTRO DE VISITA MEDICA
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (vm == null)
-            {
-                return NotFound();
-            }
+        //    //busco en context el id y lo guardo en la variable
+        //    var vm = _context.VisitaMedica.Find(id);
 
-            return View(vm);
-        }
+        //    if (vm == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(vm);
+        //}
         //..........................................................
         //metodo borrar
         //aqui envia los cambios a la bbdd
         //no puede ser delete porque ya esta creado con la misma cantidad de parametros
         //action name sera delete porque asi esta en el formulario de la vista
         //para que vea el nombre delete aunque se llame deleteregistro
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRegistro(int? id)
-        {
-            var vm = await _context.VisitaMedica.FindAsync(id);
 
-            if (vm == null)
-            {
-                return View();
-            }
+        //METODO DESACTIVADO YA QUE NO NOS INTERESA ELIMINAR NINGUN REGISTRO DE VISITA MEDICA
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteRegistro(int? id)
+        //{
+        //    var vm = await _context.VisitaMedica.FindAsync(id);
 
-
-            _context.VisitaMedica.Remove(vm);
-            //guardar cambios
-            await _context.SaveChangesAsync();
-            //retornar Index
-            return RedirectToAction(nameof(Index));
+        //    if (vm == null)
+        //    {
+        //        return View();
+        //    }
 
 
-        }
+        //    _context.VisitaMedica.Remove(vm);
+        //    //guardar cambios
+        //    await _context.SaveChangesAsync();
+        //    //retornar Index
+        //    return RedirectToAction(nameof(Index));
+        //}
         public IActionResult Privacy()
         {
             return View();

@@ -1,9 +1,9 @@
-﻿@model ProyectoDia.DataAccess.VisitaMedica
+﻿<!--model ProyectoDia.DataAccess.VisitaMedica
 
-@{
-    ViewData["Title"] = "Eliminar Medico";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+//{
+//ViewData["Title"] = "Eliminar Medico";
+//Layout = "~/Views/Shared/_Layout.cshtml";
+//}
 <h1 class="text-center">CRUD pacientes</h1>
 
 
@@ -15,30 +15,30 @@
                 <h3><strong>Eliminar medico</strong></h3>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body">-->
             <!-- llamo al metodo delete, envio oculto el id necesario para saber cual es el paciente que quiero borrar-->
             <!--ira a buscar un metodo del post que se llama borrar-->
-            <form asp-action="Delete">
+            <!--<form asp-action="Delete">
                 <input type="hidden" value="Id" />
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                
                 <div class="form-group">
-                    <label asp-for="PacienteId" class="control-label"></label>
+                    <label asp-for="PacienteId" class="control-label"></label>-->
                     <!--campo solo lectura-->
-                    <input asp-for="PacienteId" class="form-control" readonly />
+                    <!--<input asp-for="PacienteId" class="form-control" readonly />
                     <span asp-validation-for="PacienteId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MedicoId" class="control-label"></label>
+                    <label asp-for="MedicoId" class="control-label"></label>-->
                     <!--campo solo lectura-->
-                    <input asp-for="MedicoId" class="form-control" readonly />
+                    <!--<input asp-for="MedicoId" class="form-control" readonly />
                     <span asp-validation-for="MedicoId" class="text-danger"></span>
                 </div>
            
                 <div class="form-group">
-                    <label asp-for="Observaciones" class="control-label"></label>
+                    <label asp-for="Observaciones" class="control-label"></label>-->
                     <!--campo solo lectura-->
-                    <input asp-for="Observaciones" class="form-control" readonly />
+                    <!--<input asp-for="Observaciones" class="form-control" readonly />
                     <span asp-validation-for="Observaciones" class="text-danger"></span>
                 </div>
              
@@ -48,9 +48,9 @@
             </form>
         </div>
     </div>
-</div>
+</div>-->
 
 <!--BOTON PARA VOLVER A INDEX-->
-<div>
+<!--<div>
     <a asp-action="Index">Volver a lista</a>
-</div>
+</div>-->
