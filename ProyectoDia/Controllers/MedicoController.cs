@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
 using ProyectoDia.ViewModels;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -22,7 +23,17 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Medico.ToListAsync());
+            var listarMedicos = await _context.Medico.ToListAsync();
+            List<Medico> listarMedicosActivos = new List<Medico>();
+            foreach (var medico in listarMedicos) 
+            {
+                if (medico.Activo == true)
+                {
+
+                    listarMedicosActivos.Add(medico);
+                }
+            }
+            return View(listarMedicosActivos);
         }
         //.............................................................
         //not need to be async ???
@@ -30,9 +41,7 @@ namespace ProyectoDia.Controllers
         public async Task<IActionResult> Create()
         {
             return View();
-            /* MedicoViewModel mvm = new MedicoViewModel();
-             mvm.ListaPacientes = (System.Collections.Generic.IEnumerable<Business.Models.Paciente>)await _context.Paciente.ToListAsync();
-             return View(mvm);*/
+
         }
         //.............................................................
         //I call this method when I create a Patient
@@ -42,9 +51,10 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Medico medico)
         {
-           
+
             //validate the model
             //all the fields must be validated
+            medico.Activo = true;
             if (ModelState.IsValid)
             {
                 //send data to the DB
@@ -56,6 +66,38 @@ namespace ProyectoDia.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View();
+        }
+
+
+        public async Task<IActionResult> listarMedicos()
+        {
+        
+            return View(await _context.Medico.ToListAsync());
+        }
+
+        public async Task<IActionResult> CambiarEstado(int? id)
+        {
+            var medico = await _context.Medico.FindAsync(id);
+
+            if (medico == null)
+            {
+                return View();
+            }
+            if (medico.Activo)
+            {
+                medico.Activo = false;
+
+            }
+            else
+            {
+                medico.Activo = true;
+            }
+
+            _context.Medico.Update(medico);
+            //guardar cambios
+            await _context.SaveChangesAsync();
+            //retornar Index
+            return RedirectToAction(nameof(listarMedicos));
         }
         //.............................................................
         //metodo de la tecla edit de index para actualizar bbdd, 
@@ -86,6 +128,7 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Medico medico)
         {
+            medico.Activo = true;
           
             if (ModelState.IsValid)
             {
@@ -122,50 +165,48 @@ namespace ProyectoDia.Controllers
         //boton borrar
         //recibo el id de index
         //aqui obtiene los registros de la bbdd mediante el id que es un campo oculto
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            //busco en context el id y lo guardo en la variable
-            var medico = _context.Medico.Find(id);
+        //    //busco en context el id y lo guardo en la variable
+        //    var medico = _context.Medico.Find(id);
 
-            if (medico == null)
-            {
-                return NotFound();
-            }
+        //    if (medico == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(medico);
-        }
+        //    return View(medico);
+        //}
         //..........................................................
         //metodo borrar
         //aqui envia los cambios a la bbdd
         //no puede ser delete porque ya esta creado con la misma cantidad de parametros
         //action name sera delete porque asi esta en el formulario de la vista
         //para que vea el nombre delete aunque se llame deleteregistro
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteRegistro(int? id)
-        {
-            var medico = await _context.Medico.FindAsync(id);
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteRegistro(int? id)
+        //{
+        //    var medico = await _context.Medico.FindAsync(id);
 
-            if (medico == null)
-            {
-                return View();
-            }
-
-
-            _context.Medico.Remove(medico);
-            //guardar cambios
-            await _context.SaveChangesAsync();
-            //retornar Index
-            return RedirectToAction(nameof(Index));
+        //    if (medico == null)
+        //    {
+        //        return View();
+        //    }
 
 
-        }
+        //    _context.Medico.Remove(medico);
+        //    //guardar cambios
+        //    await _context.SaveChangesAsync();
+        //    //retornar Index
+        //    return RedirectToAction(nameof(Index));
+        //}
         public IActionResult Privacy()
         {
             return View();

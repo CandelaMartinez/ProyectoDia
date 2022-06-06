@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Medico\Delete.cshtml" />
+    <Content Remove="Views\Paciente\Delete.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0">

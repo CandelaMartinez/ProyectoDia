@@ -185,6 +185,7 @@ namespace ProyectoDia.Controllers
                 paciente.MedicoCabecera = medico;
                 paciente.MedicoCabeceraId = medico.Id;
             }
+            paciente.Activo = true;
 
             if (ModelState.IsValid)
             {

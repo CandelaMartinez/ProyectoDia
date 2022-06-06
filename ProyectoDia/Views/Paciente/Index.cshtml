@@ -9,7 +9,7 @@
 <!--New Patient button-->
 <div class="row">
     <div class="col-12">
-        <div class="float-right">
+        <div class="float-right pb-2">
             <!--Font Awesome icon, create method in HomeController-->
             <a asp-action="Create" asp-controller="Paciente" class="btn btn-success"><i class="fas fa-plus"></i> Crear paciente</a>
         </div>
@@ -18,31 +18,30 @@
 <!-- List of patients-->
 <div class="row">
     <div class="col-12">
-        <div class="card-body">
-            <div class="table">
-                <!--model access, if there is any register-->
-                @if (Model.Count() > 0)
-                {
-                    //create the table
-                    <table class="table table-bordered" id="tblPacientes" width="100%" cellspacing="0">
-                        <!--accesing the fields of the table-->
-                        <thead>
-                            <tr>
-                                <th>@Html.DisplayNameFor(m => m.Id)</th>
-                                <th>@Html.DisplayNameFor(m => m.TarjetaSanitaria)</th>
-                                <th>@Html.DisplayNameFor(m => m.Nombre)</th>
-                                <th>@Html.DisplayNameFor(m => m.Apellido)</th>
-                                <th>@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
-                                <th>@Html.DisplayNameFor(m => m.Direccion)</th>
-                                <th>@Html.DisplayNameFor(m => m.Telefono)</th>
-                                <th>@Html.DisplayNameFor(m => m.MedicoCabecera)</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <!--accesing the data of the registers-->
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
+        <div class="table">
+            <!--model access, if there is any register-->
+            @if (Model.Count() > 0)
+            {
+                //create the table
+                <table class="table table-bordered" id="tblPacientes" width="100%" cellspacing="0">
+                    <!--accesing the fields of the table-->
+                    <thead>
+                        <tr>
+                            <th>@Html.DisplayNameFor(m => m.Id)</th>
+                            <th>@Html.DisplayNameFor(m => m.TarjetaSanitaria)</th>
+                            <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                            <th>@Html.DisplayNameFor(m => m.Apellido)</th>
+                            <th>@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
+                            <th>@Html.DisplayNameFor(m => m.Direccion)</th>
+                            <th>@Html.DisplayNameFor(m => m.Telefono)</th>
+                            <th>@Html.DisplayNameFor(m => m.MedicoCabecera)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <!--accesing the data of the registers-->
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
                                 <td>@Html.DisplayFor(m => item.Id)</td>
                                 <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
@@ -54,23 +53,26 @@
                                 <td>@Html.DisplayFor(m => item.MedicoCabecera.Nombre)</td>
                                 <td>
                                     <!--botones para las acciones sobre los registros -->
-                                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-solid fa-pencil"></i>Edit</a>
+                                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-solid fa-pencil"></i>Edit</a>
                                     <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-solid fa-info"></i> Details</a>
-                                    
+
 
                                 </td>
                             </tr>
-                            }
-                        </tbody>
+                        }
+                    </tbody>
 
-                    </table>
+                </table>
 
-                }
-                else
-                {
-                    <p>No hay registros</p>
-                }
-            </div>
+            }
+            else
+            {
+                <p>No hay registros</p>
+            }
+        </div>
+        <!--BOTON PARA VOLVER A HOME-->
+        <div>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Volver</a>
         </div>
     </div>
 </div>
