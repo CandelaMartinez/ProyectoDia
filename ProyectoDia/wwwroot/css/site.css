@@ -60,12 +60,63 @@ html {
 
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: start; 
+  justify-content: start;
 }
+
+header {
+    width: 100%;
+}
+
 .footer {
-  position: absolute;
-  bottom: 0;
+  margin-top: auto;
+  height: 60px;
   width: 100%;
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+a.navbar-brand {
+    background-color: #2996cc;
+    padding: .5em;
+    border-radius: 4px;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 rgb(0 0 0 / 12%);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.fondo {
+    background: url(https://clinic-cloud.com/wp-content/uploads/2020/02/consulta-medica.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    flex: 1;
+  
+}
+
+table.dataTable tbody tr.tabla_trasnsparente {
+    background-color: transparent;
+}
+
+    .botones .btn-info {
+        color: #343434;
+        /* background-color: #17a2b8; */
+        background-color: transparent;
+        border-color: #2c2c2c;
+        text-transform: uppercase;
+        min-width: 140px;
+    }
