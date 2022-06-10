@@ -231,7 +231,53 @@ namespace ProyectoDia.Controllers
 
             return View(visita);
         }
-       
+        //............................................................
+        //boton borrar
+        //recibo el id de index
+        //aqui obtiene los registros de la bbdd mediante el id que es un campo oculto
+        //[HttpGet]
+        //public IActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    //busco en context el id y lo guardo en la variable
+        //    var medico = _context.Medico.Find(id);
+
+        //    if (medico == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return View(medico);
+        //}
+        //..........................................................
+        //metodo borrar
+        //aqui envia los cambios a la bbdd
+        //no puede ser delete porque ya esta creado con la misma cantidad de parametros
+        //action name sera delete porque asi esta en el formulario de la vista
+        //para que vea el nombre delete aunque se llame deleteregistro
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteRegistro(int? id)
+        //{
+        //    var medico = await _context.Medico.FindAsync(id);
+
+        //    if (medico == null)
+        //    {
+        //        return View();
+        //    }
+
+
+        //    _context.Medico.Remove(medico);
+        //    //guardar cambios
+        //    await _context.SaveChangesAsync();
+        //    //retornar Index
+        //    return RedirectToAction(nameof(Index));
+        //}
+
         public IActionResult Privacy()
         {
             return View();
