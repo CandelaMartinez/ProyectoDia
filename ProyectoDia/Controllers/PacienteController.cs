@@ -70,8 +70,6 @@ namespace ProyectoDia.Controllers
         public IActionResult Create()
         {
             var listaMedicos = _context.Medico.ToList();
-
-
             List<SelectListItem> listaDropDown = listaMedicos.ConvertAll(d =>
             {
                 var sli = new SelectListItem();
@@ -82,8 +80,6 @@ namespace ProyectoDia.Controllers
                     sli.Value = d.Id.ToString();
 
                     sli.Selected = false;
-
-
                 }
 
                 return sli;
