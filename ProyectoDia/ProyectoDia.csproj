@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DataAccess\Home.cs" />
+    <Compile Remove="DataAccess\InMemoryRepository.cs" />
+    <Compile Remove="DataAccess\IRepository.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Views\Medico\Delete.cshtml" />
     <Content Remove="Views\Paciente\Delete.cshtml" />
   </ItemGroup>

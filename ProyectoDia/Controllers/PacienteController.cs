@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,19 +12,26 @@ namespace ProyectoDia.Controllers
 {
     public class PacienteController : Controller
     {
-        //Use the context by injecting it into the constructor of the controller
+        //accedo al contexto inyectandolo a traves de constructor
         private readonly ApplicationDBContext _context;
         public PacienteController(ApplicationDBContext context)
         {
             _context = context;
         }
+        //metodo que recupera todos los pacientes de la base de datos
+        //devuelve una vista y le pasa la lista de pacientes.
         [HttpGet]
         public async Task <IActionResult> listarPacientes()
         {
+            //recupera los pacientes de la base de datos
             var pacientes = _context.Paciente.ToListAsync();
+            //pasa el resultado a array
             var pacients = pacientes.Result.ToArray();
             int idMedico;
             Medico medico;
+            //recupera el id del medico de cabecera de cada paciente
+            //busca ese medico por id en la base de datos
+            //establece ese medico como propiedad de ese paciente
             for (int i = 0; i < pacients.Length; i++)
             {
                 idMedico = pacients[i].MedicoCabeceraId;
@@ -35,7 +41,7 @@ namespace ProyectoDia.Controllers
             return View(pacients);
         }
 
-        //async method because for bringing data from the db is better to be async ???
+        //metodo que recupera los pacientes activos y devuelve una vista con ellos
         [HttpGet]
         public async Task <IActionResult> Index()
         {
@@ -44,6 +50,8 @@ namespace ProyectoDia.Controllers
             List<Paciente> listaPacientesActivos = new List<Paciente>();
             int idMedico;
             Medico medico;
+            //recorre la lista total de  pacientes y chequea si la propiedad activo es true
+            //si es asi, establece la propiedad medico y agrega el paciente a la lista
             foreach (var paciente in listaPacientesTodos)
             {
                 if (paciente.Activo == true)
@@ -53,14 +61,11 @@ namespace ProyectoDia.Controllers
                     paciente.MedicoCabecera = medico;
                     listaPacientesActivos.Add(paciente);
                 }
-
             }
-
             return View(listaPacientesActivos);
         }
 
-        //.............................................................
-        //not need to be async ???
+       //
         [HttpGet]
         public IActionResult Create()
         {
