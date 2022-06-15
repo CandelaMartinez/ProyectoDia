@@ -89,19 +89,30 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VisitaMedica visitaMedica)
         {
-            if (visitaMedica.Medico == null && visitaMedica.Paciente == null)
+            if (visitaMedica.Medico == null || visitaMedica.Paciente == null)
             {
-                int medicoid = visitaMedica.MedicoId;
-                var medico = _context.Medico.Find(medicoid);
-                visitaMedica.Medico = medico;
-                visitaMedica.MedicoId = medico.Id;
-                //Paciente
-                int pacienteid = visitaMedica.PacienteId;
-                var paciente = _context.Paciente.Find(pacienteid);
-                visitaMedica.Paciente = paciente;
-                visitaMedica.PacienteId = paciente.Id;
+
+                if (visitaMedica.MedicoId==0 || visitaMedica.PacienteId==0)
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
+                    var medicoid = visitaMedica.MedicoId;
+                    var medico = _context.Medico.Find(medicoid);
+                    visitaMedica.Medico = medico;
+                    visitaMedica.MedicoId = medico.Id;
+                    //Paciente
+                    int pacienteid = visitaMedica.PacienteId;
+                    var paciente = _context.Paciente.Find(pacienteid);
+                    visitaMedica.Paciente = paciente;
+                    visitaMedica.PacienteId = paciente.Id;
             }
 
+
+            //var fecha = DateTime.Now;
+            // visitaMedica.Fecha = fecha;
+            //validate the model
+            //all the fields must be validated
             if (ModelState.IsValid)
             {
                 _context.VisitaMedica.Add(visitaMedica);
@@ -123,6 +134,8 @@ namespace ProyectoDia.Controllers
             }
             //busco en context el id y lo guardo en la variable
             var vm = _context.VisitaMedica.Find(id);
+
+
 
             if (vm == null)
             {
@@ -175,6 +188,8 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(VisitaMedica visitaMedica)
         {
+
+
             if (visitaMedica.Medico == null)
             {
                 int medicoid = visitaMedica.MedicoId;
@@ -192,6 +207,7 @@ namespace ProyectoDia.Controllers
 
             if (ModelState.IsValid)
             {
+
                 _context.VisitaMedica.Update(visitaMedica);
                 //guardar cambios
                 await _context.SaveChangesAsync();
@@ -217,6 +233,8 @@ namespace ProyectoDia.Controllers
                 return NotFound();
             }
 
+
+
             int idMedico;
             int idPaciente;
             Medico medico;
@@ -228,6 +246,16 @@ namespace ProyectoDia.Controllers
             paciente = _context.Paciente.Find(idPaciente);
             visita.Medico = medico;
             visita.Paciente = paciente;
+
+
+            idMedico = visita.MedicoId;
+            idPaciente = visita.PacienteId;
+            medico = _context.Medico.Find(idMedico);
+            paciente = _context.Paciente.Find(idPaciente);
+            visita.Medico = medico;
+            visita.Paciente = paciente;
+
+
 
             return View(visita);
         }

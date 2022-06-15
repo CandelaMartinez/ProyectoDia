@@ -4,14 +4,14 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Registro de visitas medicas</h2>
+<h3>Registro de visitas medicas</h3>
 
 <!--New Patient button-->
 <div class="row">
     <div class="col-12">
         <div class="float-right pb-2">
             <!--Font Awesome icon, create method in HomeController-->
-            <a asp-action="Create" asp-controller="VisitaMedica" class="btn btn-success"><i class="fas fa-plus"></i> registrar visita</a>
+            <a asp-action="Create" asp-controller="VisitaMedica" class="btn btn-success"><i class="fas fa-plus"></i> Registrar visita</a>
         </div>
     </div>
 </div>
@@ -30,10 +30,10 @@
                                 @*<th>@Html.DisplayNameFor(m => m.Id)</th>*@
                                 <th>@Html.DisplayNameFor(m => m.Fecha)</th>
                                 <th>@Html.DisplayNameFor(m => m.Paciente)</th>
-                                <th>@Html.DisplayNameFor(m => m.Medico)</th>
+                                <th>Médico</th>
 
-                                <th>@Html.DisplayNameFor(m => m.Observaciones)</th>
-                                <th>Actions</th>
+                                @*<th>@Html.DisplayNameFor(m => m.Observaciones)</th>*@
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <!--accesing the data of the registers-->
@@ -45,11 +45,11 @@
                                     <td>@Html.DisplayFor(m => item.Fecha)</td>
                                     <td>@Html.DisplayFor(m => item.Paciente.Nombre)</td>
                                     <td>@Html.DisplayFor(m => item.Medico.Nombre)</td>
-                                    <td>@Html.DisplayFor(m => item.Observaciones)</td>
+                                    @*<td>@Html.DisplayFor(m => item.Observaciones)</td>*@
                                     <td>
                                         <!--botones para las acciones sobre los registros -->
-                                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
-                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a>
+                                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalles</a>
 
                                         @*Boton deshabilitado porque no nos interesa borrar el registro de ninguna visita medica*@
                                         @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id"><i class="fa-solid fa-trash-can"></i>Delete</a>*@

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Listado de pacientes</h2>
+<h3>Listado de pacientes</h3>
 
 <!--New Patient button-->
 <div class="row">
@@ -27,14 +27,13 @@
                     <!--accesing the fields of the table-->
                     <thead>
                         <tr>
-                            <th>@Html.DisplayNameFor(m => m.Id)</th>
-                            <th>@Html.DisplayNameFor(m => m.TarjetaSanitaria)</th>
+                            <th>Tarjeta Sanitaria</th>
                             <th>@Html.DisplayNameFor(m => m.Nombre)</th>
                             <th>@Html.DisplayNameFor(m => m.Apellido)</th>
-                            <th>@Html.DisplayNameFor(m => m.FechaNacimiento)</th>
+                            <th>Fecha de nacimiento</th>
                             <th>@Html.DisplayNameFor(m => m.Direccion)</th>
                             <th>@Html.DisplayNameFor(m => m.Telefono)</th>
-                            <th>@Html.DisplayNameFor(m => m.MedicoCabecera)</th>
+                            <th>Médico de cabecera</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -43,7 +42,6 @@
                         @foreach (var item in Model)
                         {
                             <tr style="background-color: transparent">
-                                <td>@Html.DisplayFor(m => item.Id)</td>
                                 <td>@Html.DisplayFor(m => item.TarjetaSanitaria)</td>
                                 <td>@Html.DisplayFor(m => item.Nombre)</td>
                                 <td>@Html.DisplayFor(m => item.Apellido)</td>
@@ -53,8 +51,8 @@
                                 <td>@Html.DisplayFor(m => item.MedicoCabecera.Nombre)</td>
                                 <td>
                                     <!--botones para las acciones sobre los registros -->
-                                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fas fa-solid fa-pencil"></i>Edit</a>
-                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fas fa-solid fa-info"></i> Details</a>
+                                    <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"> Editar</a>
+                                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"> Detalles</a>
 
 
                                 </td>
