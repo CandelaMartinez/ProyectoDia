@@ -100,6 +100,12 @@ namespace ProyectoDia.Controllers
             if (paciente.MedicoCabecera == null)
             {
 
+                if (paciente.MedicoCabeceraId == 0 )
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
+
                 int medicoid = paciente.MedicoCabeceraId;
                 var medico = _context.Medico.Find(medicoid);
                 paciente.MedicoCabecera = medico;
