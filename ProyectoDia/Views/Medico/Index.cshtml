@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Lista de medicos</h2>
+<h3>Lista de médicos</h3>
 
 <!--New Patient button-->
 <div class="row">
@@ -27,11 +27,10 @@
                         <!--accesing the fields of the table-->
                         <thead>
                             <tr>
-                                <th>@Html.DisplayNameFor(m => m.Id)</th>
                                 <th>@Html.DisplayNameFor(m => m.Nombre)</th>
                                 <th>@Html.DisplayNameFor(m => m.Apellido)</th>
-                                <th>@Html.DisplayNameFor(m => m.matricula)</th>
-                                <th>Actions</th>
+                                <th>Matrícula</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <!--accesing the data of the registers-->
@@ -39,14 +38,13 @@
                             @foreach (var item in Model)
                             {
                                 <tr style="background-color: transparent">
-                                    <td>@Html.DisplayFor(m => item.Id)</td>
                                     <td>@Html.DisplayFor(m => item.Nombre)</td>
                                     <td>@Html.DisplayFor(m => item.Apellido)</td>
                                     <td>@Html.DisplayFor(m => item.matricula)</td>
                                     <td>
                                         <!--botones para las acciones sobre los registros -->
-                                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id"><i class="fa-solid fa-pencil"></i>Edit</a>
-                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i>Details</a>
+                                        <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                                        <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Detalles</a>
                                     </td>
                                 </tr>
                             }
@@ -57,7 +55,7 @@
                 }
                 else
                 {
-                    <p>No tenemos medicos registrados</p>
+                    <p>No tenemos médicos registrados</p>
                 }
             </div>
         <!--BOTON PARA VOLVER A HOME-->

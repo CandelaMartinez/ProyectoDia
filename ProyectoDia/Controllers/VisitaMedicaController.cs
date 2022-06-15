@@ -25,17 +25,18 @@ namespace ProyectoDia.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var visitasMedicas =  _context.VisitaMedica.ToListAsync();
-            var visita= visitasMedicas.Result.ToArray();
+            var visitasMedicas = _context.VisitaMedica.ToListAsync();
+            var visita = visitasMedicas.Result.ToArray();
             int idMedico;
             int idPaciente;
             Medico medico;
             Paciente paciente;
-     
-            for (int i =0; i< visita.Length;i++) {
+
+            for (int i = 0; i < visita.Length; i++)
+            {
                 idMedico = visita[i].MedicoId;
                 idPaciente = visita[i].PacienteId;
-                medico  = _context.Medico.Find(idMedico);
+                medico = _context.Medico.Find(idMedico);
                 paciente = _context.Paciente.Find(idPaciente);
                 visita[i].Medico = medico;
                 visita[i].Paciente = paciente;
@@ -98,22 +99,28 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(VisitaMedica visitaMedica)
         {
-            if (visitaMedica.Medico == null && visitaMedica.Paciente == null)
+            if (visitaMedica.Medico == null || visitaMedica.Paciente == null)
             {
-                int medicoid = visitaMedica.MedicoId;
-                var medico = _context.Medico.Find(medicoid);
-                visitaMedica.Medico = medico;
-                visitaMedica.MedicoId = medico.Id;
-                //Paciente
-                int pacienteid = visitaMedica.PacienteId;
-                var paciente = _context.Paciente.Find(pacienteid);
-                visitaMedica.Paciente = paciente;
-                visitaMedica.PacienteId = paciente.Id;
+
+                if (visitaMedica.MedicoId==0 || visitaMedica.PacienteId==0)
+                {
+
+                    return RedirectToAction(nameof(Index));
+                }
+                    var medicoid = visitaMedica.MedicoId;
+                    var medico = _context.Medico.Find(medicoid);
+                    visitaMedica.Medico = medico;
+                    visitaMedica.MedicoId = medico.Id;
+                    //Paciente
+                    int pacienteid = visitaMedica.PacienteId;
+                    var paciente = _context.Paciente.Find(pacienteid);
+                    visitaMedica.Paciente = paciente;
+                    visitaMedica.PacienteId = paciente.Id;
             }
 
-           
+
             //var fecha = DateTime.Now;
-           // visitaMedica.Fecha = fecha;
+            // visitaMedica.Fecha = fecha;
             //validate the model
             //all the fields must be validated
             if (ModelState.IsValid)
@@ -144,7 +151,7 @@ namespace ProyectoDia.Controllers
 
             //busco en context el id y lo guardo en la variable
             var vm = _context.VisitaMedica.Find(id);
-            
+
 
             if (vm == null)
             {
@@ -203,7 +210,7 @@ namespace ProyectoDia.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(VisitaMedica visitaMedica)
         {
-        
+
 
             if (visitaMedica.Medico == null)
             {
@@ -222,7 +229,7 @@ namespace ProyectoDia.Controllers
 
             if (ModelState.IsValid)
             {
-                
+
                 _context.VisitaMedica.Update(visitaMedica);
                 //guardar cambios
                 await _context.SaveChangesAsync();
@@ -251,22 +258,22 @@ namespace ProyectoDia.Controllers
                 return NotFound();
             }
 
-            
-            
+
+
             int idMedico;
             int idPaciente;
             Medico medico;
             Paciente paciente;
 
-            
-                idMedico = visita.MedicoId;
-                idPaciente = visita.PacienteId;
-                medico = _context.Medico.Find(idMedico);
-                paciente = _context.Paciente.Find(idPaciente);
-                visita.Medico = medico;
-                visita.Paciente = paciente;
-                
-            
+
+            idMedico = visita.MedicoId;
+            idPaciente = visita.PacienteId;
+            medico = _context.Medico.Find(idMedico);
+            paciente = _context.Paciente.Find(idPaciente);
+            visita.Medico = medico;
+            visita.Paciente = paciente;
+
+
 
             return View(visita);
         }

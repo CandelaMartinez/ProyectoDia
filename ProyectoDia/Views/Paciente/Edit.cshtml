@@ -5,63 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
-    <h1>Editar paciente</h1>
+    <h3>Editar paciente</h3>
     <hr />
     <div class="row">
         <div class="col-12">
-                <!-- llamo al metodo edit, envio oculto el id, campo oculto-->
-                <form asp-action="Edit">
-                    <input type="hidden" value="Id" />
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="TarjetaSanitaria" class="control-label"></label>
-                        <input asp-for="TarjetaSanitaria" class="form-control" />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row align-items-start">
+                    <div class="form-group col">
+                        <label asp-for="TarjetaSanitaria" class="control-label">Tarjeta Sanitaria</label>
+                        <input asp-for="TarjetaSanitaria" class="form-control" placeholder="Ingresa tarjeta sanitaria del paciente" />
                         <span asp-validation-for="TarjetaSanitaria" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Nombre" class="control-label"></label>
-                        <input asp-for="Nombre" class="form-control" />
+                    <div class="form-group col">
+                        <label asp-for="Nombre" class="control-label">Nombre</label>
+                        <input asp-for="Nombre" class="form-control" placeholder="Ingresa el nombre del paciente" />
                         <span asp-validation-for="Nombre" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Apellido" class="control-label"></label>
-                        <input asp-for="Apellido" class="form-control" />
+                    <div class="form-group col">
+                        <label asp-for="Apellido" class="control-label">Apellido</label>
+                        <input asp-for="Apellido" class="form-control" placeholder="Ingresa el apellido del paciente" />
                         <span asp-validation-for="Apellido" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="FechaNacimiento" class="control-label"></label>
-                        <input asp-for="FechaNacimiento" class="form-control" />
+                </div>
+
+                <div class="row align-items-start">
+                    <div class="form-group col-4">
+                        <label asp-for="FechaNacimiento" class="control-label">Fecha de Nacimiento</label>
+                        <input asp-for="FechaNacimiento" class="form-control" placeholder="Ingresa la fecha de nacimiento del paciente" />
                         <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Telefono" class="control-label"></label>
-                        <input asp-for="Telefono" class="form-control" />
+
+                    <div class="form-group col-4">
+                        <label asp-for="Telefono" class="control-label">Teléfono</label>
+                        <input asp-for="Telefono" class="form-control" placeholder="Ingresa el telefono del paciente" />
                         <span asp-validation-for="Telefono" class="text-danger"></span>
                     </div>
+                    <div class="form-group col-4">
+                        <label asp-for="MedicoCabeceraId" class="control-label">Seleccionar medico cabecera</label>
 
-                    <div class="form-group">
-                        <label asp-for="Direccion" class="control-label"></label>
-                        <input asp-for="Direccion" class="form-control" />
-                        <span asp-validation-for="Direccion" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="MedicoCabeceraId" class="control-label"></label>
-
-                        <select class="form-select form-select-lg mb-3 form-control" asp-for="MedicoCabeceraId" asp-items="dropdownMedicos" id="desplegableMedicos">
+                        <select class="d-block form-select form-select-lg mb-3 form-control" asp-for="MedicoCabeceraId" asp-items="dropdownMedicos" id="desplegableMedicos">
                             <option>Elige medico</option>
                         </select>
                         <span asp-validation-for="MedicoCabeceraId" class="text-danger"></span>
                     </div>
-                    <div class="d-flex justify-content-between">
-                        <!--BOTON PARA VOLVER A INDEX-->
-                        <div>
-                            <a class="btn btn-primary" asp-action="Index">Volver a lista</a>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Guardar</button>
-                        </div>
+                </div>
+                <div class="row align-items-start">
+                    <div class="form-group col">
+                        <label asp-for="Direccion" class="control-label">Dirección</label>
+                        <textarea asp-for="Direccion" class="form-control" placeholder="Ingresa la direccion del paciente" style="height: 100px"></textarea>
+                        <span asp-validation-for="Direccion" class="text-danger"></span>
                     </div>
-                </form>
+
+                </div>
+                @*<div class="row align-items-start">
+
+                    </div>*@
+                <div class="d-flex justify-content-between">
+                    <!--BOTON PARA VOLVER A INDEX-->
+                    <div>
+                        <a class="btn btn-primary" asp-action="Index">Volver a lista</a>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success"><i class="fas fa-user"></i> Guardar</button>
+                    </div>
+                </div>
+            </form>
+
+
         </div>
     </div>
 </div>
