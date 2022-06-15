@@ -22,10 +22,10 @@ namespace ProyectoDia
         {
             services.AddControllersWithViews();
 
-        //add the context, add the package microsoftEntityFrameworkCoreSQLserver
-        //for migration I install microsoftEntityFrameworkCore.Tools: code First
-        //active the usual commands for migrations
-        //agrego el servicio de conexion a la db 
+            //agrego el contexto, agrego el paquete microsoftEntityFrameworkCoreSQLserver
+            //para poder migrar instale el paquete  microsoftEntityFrameworkCore.Tool
+            //aqui estoy activando los comandos usuales para migraciones y agregando el servicio de conexcion a la db
+            //dentro de appsettings.json defini el nombre de mi conexion como DefaultConennection.
             services.AddDbContext<ApplicationDBContext>(options =>
               options.UseSqlServer(
                   Configuration.GetConnectionString("DefaultConnection")));

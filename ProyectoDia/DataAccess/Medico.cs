@@ -11,7 +11,7 @@ namespace ProyectoDia.DataAccess
         public String Nombre { get; set; }
         public String Apellido { get; set; }
         public String matricula { get; set; }
-        //relacion de muchos a muchos con visita medica
+        //relacion de uno a muchos con visita medica
         //un medico puede tener muchas visitas medicas
         public bool Activo { get; set; }
         public ICollection<VisitaMedica> ListaVisitasMedicas { get; set; }

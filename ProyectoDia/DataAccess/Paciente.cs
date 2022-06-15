@@ -31,13 +31,13 @@ namespace ProyectoDia.DataAccess
 
         public bool Activo { get; set; }
 
-        //relacion de muchos a muchos con visita medica
+        //relacion de uno a muchos con visita medica
         //un paciente puede tener muchas visitas medicas
         public ICollection<VisitaMedica> ListaVisitasMedicas { get; set; }
 
         //relacion de muchos a uno con medico. muchos pacientes un medico.
         //foreign key con la table medico
-        //[Required]
+       
         public int MedicoCabeceraId { get; set; }
         
         [ForeignKey("MedicoCabeceraId")]

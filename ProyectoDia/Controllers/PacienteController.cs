@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProyectoDia.DataAccess;
 using ProyectoDia.Models;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,19 +12,26 @@ namespace ProyectoDia.Controllers
 {
     public class PacienteController : Controller
     {
-        //Use the context by injecting it into the constructor of the controller
+        //accedo al contexto inyectandolo a traves de constructor
         private readonly ApplicationDBContext _context;
         public PacienteController(ApplicationDBContext context)
         {
             _context = context;
         }
+        //metodo que recupera todos los pacientes de la base de datos
+        //devuelve una vista y le pasa la lista de pacientes.
         [HttpGet]
         public async Task <IActionResult> listarPacientes()
         {
+            //recupera los pacientes de la base de datos
             var pacientes = _context.Paciente.ToListAsync();
+            //pasa el resultado a array
             var pacients = pacientes.Result.ToArray();
             int idMedico;
             Medico medico;
+            //recupera el id del medico de cabecera de cada paciente
+            //busca ese medico por id en la base de datos
+            //establece ese medico como propiedad de ese paciente
             for (int i = 0; i < pacients.Length; i++)
             {
                 idMedico = pacients[i].MedicoCabeceraId;
@@ -35,7 +41,7 @@ namespace ProyectoDia.Controllers
             return View(pacients);
         }
 
-        //async method because for bringing data from the db is better to be async ???
+        //metodo que recupera los pacientes activos y devuelve una vista con ellos
         [HttpGet]
         public async Task <IActionResult> Index()
         {
@@ -44,6 +50,8 @@ namespace ProyectoDia.Controllers
             List<Paciente> listaPacientesActivos = new List<Paciente>();
             int idMedico;
             Medico medico;
+            //recorre la lista total de  pacientes y chequea si la propiedad activo es true
+            //si es asi, establece la propiedad medico y agrega el paciente a la lista
             foreach (var paciente in listaPacientesTodos)
             {
                 if (paciente.Activo == true)
@@ -53,20 +61,16 @@ namespace ProyectoDia.Controllers
                     paciente.MedicoCabecera = medico;
                     listaPacientesActivos.Add(paciente);
                 }
-
             }
-
             return View(listaPacientesActivos);
         }
 
-        //.............................................................
-        //not need to be async ???
+       //metodo que metodo que devuelve la vista necesaria para crear un paciente
         [HttpGet]
         public IActionResult Create()
         {
+            //poblamos el desplegable con todos los medicos de la base de datos
             var listaMedicos = _context.Medico.ToList();
-
-
             List<SelectListItem> listaDropDown = listaMedicos.ConvertAll(d =>
             {
                 var sli = new SelectListItem();
@@ -77,26 +81,22 @@ namespace ProyectoDia.Controllers
                     sli.Value = d.Id.ToString();
 
                     sli.Selected = false;
-
-
                 }
 
                 return sli;
             });
-
+            //le pasamos a la vista la lisata de SelectListItem
             ViewBag.listaDropDown = listaDropDown;
 
             return View();
         }
-        //.............................................................
-        //I call this method when I create a Patient
-        //POST because it enter data to the DB
+        
+        //metodo que recibe la informacion del usuario al da
         [HttpPost]
-        //protect the form 
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Paciente paciente)
         {
-
+            //da valor al campo medicoCabecera buscandolo a traves de su id
             if (paciente.MedicoCabecera == null)
             {
 
@@ -105,23 +105,21 @@ namespace ProyectoDia.Controllers
                 paciente.MedicoCabecera = medico;
                 paciente.MedicoCabeceraId = medico.Id;
             }
-
+            //pone el campo activo en true
             paciente.Activo = true;
-                //validate the model
-                //all the fields must be validated
+            //valido los campos
                 if (ModelState.IsValid)
             {
-                //send data to the DB
-                //save patient
+                //agrego el paciente a la tabla paciente
                 _context.Paciente.Add(paciente);
-                //save changes
+                //guardo
                 await _context.SaveChangesAsync();
-                //once the register is saved, return to Index page
+                //ocon el registro guardado, retornamos a Index
                 return RedirectToAction(nameof(Index));
             }
             return View();
         }
-        //.............................................................
+      
         //metodo de la tecla edit de index para actualizar bbdd, 
         //al pulsar esta tecla recibo el id del paciente desde index
         //aqui me muestra los datos existentes para que los cambie
@@ -140,37 +138,30 @@ namespace ProyectoDia.Controllers
             {
                 return NotFound();
             }
-
+            //pueblo el dropdown con todos los medicos
             var listaMedicos = _context.Medico.ToList();
-
-
             List<SelectListItem> listaDropDown = listaMedicos.ConvertAll(d =>
             {
                 var sli = new SelectListItem();
                 if (d.Nombre != null)
                 {
                     sli.Text = d.Nombre.ToString();
-
                 }
-
 
                 sli.Value = d.Id.ToString();
 
                 sli.Selected = false;
 
-
-
                 return sli;
             });
 
             ViewBag.listaDropDown = listaDropDown;
-
             
             //si encontre el paciente, retorno la vista enviando el paciente
             return View(paciente);
         }
 
-        //.......................................................
+       
         //metodo que actualizar un usuario en la bbdd
         //aqui envia los datos modificados a la bbdd
         [HttpPost]
@@ -199,8 +190,8 @@ namespace ProyectoDia.Controllers
             return View(paciente);
         }
 
-        //..........................................................
-        //boton detalles
+        
+        //boton detalles recibe id de la vista.
         [HttpGet]
         public IActionResult Details(int? id)
         {
@@ -216,83 +207,11 @@ namespace ProyectoDia.Controllers
             {
                 return NotFound();
             }
-            if (paciente.ListaVisitasMedicas != null)
-            {
-
-            var listaVisitasMedicas = paciente.ListaVisitasMedicas.ToList();
-
-            List<SelectListItem> listaVMDropDown = listaVisitasMedicas.ConvertAll(d =>
-            {
-                var sli = new SelectListItem();
-               
-                sli.Text = d.Fecha.ToString();
-
-                sli.Value = d.Id.ToString();
-
-                sli.Selected = false;
-
-
-
-                return sli;
-            });
-
-            ViewBag.listaDropDown = listaVMDropDown;
-            }
+         
 
             return View(paciente);
         }
-        //............................................................
-        //boton borrar
-        //recibo el id de index
-        //aqui obtiene los registros de la bbdd mediante el id que es un campo oculto
-        //[HttpGet]
-        //public IActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    //busco en context el id y lo guardo en la variable
-        //    var paciente = _context.Paciente.Find(id);
-
-
-        //    if (paciente == null)
-        //    {
-        //        return NotFound();
-               
-        //    }
-          
-        //    return View(paciente);
-        //}
-        //..........................................................
-        //metodo borrar
-        //aqui envia los cambios a la bbdd
-        //no puede ser delete porque ya esta creado con la misma cantidad de parametros
-        //action name sera delete porque asi esta en el formulario de la vista
-        //para que vea el nombre delete aunque se llame deleteregistro
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteRegistro(int? id)
-        //{
-        //    var paciente = await _context.Paciente.FindAsync(id);
-
-        //    if (paciente == null)
-        //    {
-        //        return View();
-        //    }
-        //    //volver al metodo anterior de delete
-        //    paciente.Activo = false;
-
-        //    _context.Paciente.Update(paciente);
-        //    //guardar cambios
-        //    await _context.SaveChangesAsync();
-        //    //retornar Index
-        //    return RedirectToAction(nameof(Index));
-
-
-        //}
-
+        //metodo que cambia el estado del paciente de activo a inactivo
         public async Task<IActionResult> CambiarEstado(int? id)
         {
             var paciente = await _context.Paciente.FindAsync(id);
